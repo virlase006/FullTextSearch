@@ -1,0 +1,13 @@
+﻿CREATE TABLE sports_news (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, heading TEXT NOT NULL, news TEXT NOT NULL );
+CREATE VIRTUAL TABLE sports_news_index USING fts4(news, heading, tokenize=porter);
+CREATE TABLE weather_news (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, heading TEXT NOT NULL, news TEXT NOT NULL) ;
+CREATE VIRTUAL TABLE weather_news_index USING fts4(news, heading, tokenize=porter);
+CREATE TRIGGER sport_news_insert AFTER INSERT ON sports_news BEGIN INSERT INTO sports_news_index (rowid, news , heading ) VALUES( new.id, new.news, new.heading ); END;
+CREATE TRIGGER sport_news_update UPDATE OF news ON sports_news BEGIN UPDATE sports_news_index SET news = new.news WHERE rowid = old.id; END;
+CREATE TRIGGER sport_heading_update UPDATE OF heading ON sports_news BEGIN UPDATE sports_news_index SET heading = new.heading WHERE rowid = old.id; END;
+CREATE TRIGGER sport_news_delete AFTER DELETE ON sports_news BEGIN DELETE FROM sports_news_index WHERE rowid = old.id; END;
+CREATE TRIGGER weather_news_insert AFTER INSERT ON weather_news BEGIN INSERT INTO weather_news_index (rowid,   news, heading  ) VALUES( new.id, new.news , new.heading); END;
+CREATE TRIGGER weather_news_update UPDATE OF news ON weather_news BEGIN UPDATE weather_news_index SET news = new.news WHERE rowid = old.id; END;
+CREATE TRIGGER weather_heading_update UPDATE OF heading ON weather_news BEGIN UPDATE weather_news_index SET heading = new.heading WHERE rowid = old.id; END;
+CREATE TRIGGER weather_news_delete AFTER DELETE ON weather_news BEGIN DELETE FROM weather_news_index WHERE rowid = old.id; END;
+
