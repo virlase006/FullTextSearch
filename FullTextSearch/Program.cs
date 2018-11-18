@@ -172,12 +172,23 @@ namespace FullTextSearch
 
         private static void InitializeDatabaseForSearching(DBHelper dbHelper, SQLiteConnection con)
         {
-            string filename = "dbInitialization.txt";
-            var commands = System.IO.File.ReadAllLines(filename);
-            foreach (var line in commands)
+            Console.WriteLine("Choose what you want to do:\n 1- Create tables and indecis \n 2- Batch insert");
+            var resp = Console.ReadLine();
+            if (resp == "2" || resp == "1")
             {
-                DbHelper.ExecuteCommand(line, con);
+                string filename = resp=="1"? "../../../dbInitialization.txt":"../../../batchInsert.txt";
+
+                var commands = System.IO.File.ReadAllLines(filename,Encoding.UTF8);
+                foreach (var line in commands)
+                {
+                    DbHelper.ExecuteCommand(line, con);
+                }
             }
+            else
+            {
+                Console.WriteLine("Invalide Operation");
+            }
+            
         }
 
 
