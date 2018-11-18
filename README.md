@@ -26,3 +26,5 @@ Note: Running batch insert file twice will add same data twice as IDs are auto g
 User can choose to insert update or delete data from tables. He would be systematically prompt by the console app to make sure right data is being inserted/modified/deleted.
 ### 3. Search Full Text:
 When user choose to perform search. He will be prompt to enter the text he would like to search. Tables are search using indecis (Full text search) and list of result is shown on the console. Result may contains records from both table. Results will reflect the latest state of the records.
+# How to Run?
+Download the folder open the solution file in visual studio debug and run it.
