@@ -10,6 +10,7 @@ This file contains queries for creating tables and also creating indexes and syn
 For keeping task simple I have used two tables of news:
  1. Sports News
  2. Weather News
+ 
 Both table contains three fields ID, News and Heading. We have created index on heading and new text using SQLite FTS4 module.
 Once indices are created we have written triggers on both tables so that when any item is inserted , updated or deleted the indecis are updated as well
 so that search result always returns the latest results.
